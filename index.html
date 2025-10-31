@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>软件应用商店</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            padding: 10px;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 10px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, #4b6cb7, #182848);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .search-bar {
+            margin: 15px auto;
+            max-width: 100%;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 24px;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .categories {
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .category {
+            padding: 6px 12px;
+            margin: 3px;
+            background-color: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            font-size: 0.8rem;
+        }
+        
+        .category.active, .category:hover {
+            background-color: #4b6cb7;
+            color: white;
+        }
+        
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+        }
+        
+        .app-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+        }
+        
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .app-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 16px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+        
+        .app-name {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .app-desc {
+            font-size: 0.8rem;
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            color: #666;
+            font-size: 0.8rem;
+        }
+        
+        .no-results {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 40px;
+            color: #666;
+        }
+        
+        @media (max-width: 480px) {
+            .apps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .category {
+                padding: 5px 10px;
+                font-size: 0.7rem;
+            }
+        }
+        
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>应用商店</h1>
+            <p class="subtitle">发现精彩应用，丰富您的数字生活</p>
+        </header>
+        
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="搜索应用..." autocomplete="off">
+        </div>
+        
+        <div class="categories">
+            <div class="category active">全部</div>
+            <div class="category">追剧</div>
+			<!-- https://pan.xunlei.com/s/VObuMWnTCvio-U_cXN5xgJCQA1?pwd=98ec# -->
+			<div class="category">动漫</div>
+			<!-- https://pan.xunlei.com/s/VObuNDCVXI78YnnwEGQY2StkA1?pwd=dw75# -->
+            <div class="category">漫画</div>
+			<!-- https://pan.xunlei.com/s/VObuNHTV7Q1PsEznMCr8qmwhA1?pwd=63vs# -->
+            <div class="category">工具</div>
+            <div class="category">游戏</div>
+        </div>
+        
+        <div class="apps-grid" id="appsGrid">
+            <!-- 应用卡片将通过JavaScript动态生成 -->
+        </div>
+        
+        <footer>
+            <p>© 2025 应用商店 | 仅供展示使用</p>
+        </footer>
+    </div>
+
+    <script>
+        // 应用数据 - 每个应用可以自定义跳转链接
+        const apps = [
+            { 
+                name: "影视仓", 
+                desc: "手机电视通用", 
+                color: "#1677FF", 
+                icon: "📺",
+                url: "https://pan.xunlei.com/s/VObuMWnTCvio-U_cXN5xgJCQA1?pwd=98ec",
+                category: "追剧"
+            },
+            { 
+                name: "TVBox", 
+                desc: "手机电视通用", 
+                color: "#1677FF", 
+                icon: "📺",
+                url: "https://pan.xunlei.com/s/VObuMWnTCvio-U_cXN5xgJCQA1?pwd=98ec",
+                category: "追剧"
+            },
+            { 
+                name: "人人视频", 
+                desc: "手机版", 
+                color: "#1677FF", 
+                icon: "📺",
+                url: "https://pan.xunlei.com/s/VObuMWnTCvio-U_cXN5xgJCQA1?pwd=98ec",
+                category: "追剧"
+            },
+            { 
+                name: "百度地图", 
+                desc: "智能导航与出行服务", 
+                color: "#3A8BFF", 
+                icon: "🗺️",
+                url: "https://map.baidu.com/",
+                category: "工具"
+            },
+            { 
+                name: "腾讯视频", 
+                desc: "高清视频播放平台", 
+                color: "#FF6B00", 
+                icon: "🎬",
+                url: "https://v.qq.com/",
+                category: "娱乐"
+            },
+            { 
+                name: "网易云音乐", 
+                desc: "音乐发现与分享", 
+                color: "#E60026", 
+                icon: "🎶",
+                url: "https://music.163.com/",
+                category: "娱乐"
+            },
+            { 
+                name: "美团", 
+                desc: "生活服务一站式平台", 
+                color: "#FFD100", 
+                icon: "🍔",
+                url: "https://www.meituan.com/",
+                category: "生活"
+            },
+            { 
+                name: "钉钉", 
+                desc: "智能移动办公平台", 
+                color: "#1D7DFA", 
+                icon: "💼",
+                url: "https://www.dingtalk.com/",
+                category: "工具"
+            },
+            { 
+                name: "知乎", 
+                desc: "高质量问答社区", 
+                color: "#0084FF", 
+                icon: "❓",
+                url: "https://www.zhihu.com/",
+                category: "教育"
+            },
+            { 
+                name: "微博", 
+                desc: "社交媒体平台", 
+                color: "#E6162D", 
+                icon: "📱",
+                url: "https://weibo.com/",
+                category: "社交"
+            },
+            { 
+                name: "拼多多", 
+                desc: "社交电商平台", 
+                color: "#EE2C2C", 
+                icon: "🔗",
+                url: "https://www.pinduoduo.com/",
+                category: "生活"
+            },
+            { 
+                name: "高德地图", 
+                desc: "专业地图导航", 
+                color: "#00AAFF", 
+                icon: "📍",
+                url: "https://www.amap.com/",
+                category: "工具"
+            },
+            { 
+                name: "爱奇艺", 
+                desc: "网络视频播放平台", 
+                color: "#00B0FF", 
+                icon: "📺",
+                url: "https://www.iqiyi.com/",
+                category: "娱乐"
+            },
+            { 
+                name: "京东", 
+                desc: "综合购物平台", 
+                color: "#E31436", 
+                icon: "📦",
+                url: "https://www.jd.com/",
+                category: "生活"
+            },
+            { 
+                name: "快手", 
+                desc: "短视频社区", 
+                color: "#FF7A00", 
+                icon: "⚡",
+                url: "https://www.kuaishou.com/",
+                category: "娱乐"
+            },
+			{ 
+                name: "AI变声器", 
+                desc: "手机平板电脑", 
+                color: "#07C160", 
+                icon: "💬",
+                url: "https://pan.xunlei.com/s/VObuK42Bl-jZHH1FBHfeQirTA1?pwd=2e6r#",
+                category: "工具"
+            }
+        ];
+        
+        // 获取DOM元素
+        const appsGrid = document.getElementById('appsGrid');
+        const searchInput = document.getElementById('searchInput');
+        const categories = document.querySelectorAll('.category');
+        
+        // 渲染应用卡片
+        function renderApps(filteredApps = apps) {
+            appsGrid.innerHTML = '';
+            
+            if (filteredApps.length === 0) {
+                appsGrid.innerHTML = '<div class="no-results">没有找到匹配的应用</div>';
+                return;
+            }
+            
+            filteredApps.forEach(app => {
+                const appCard = document.createElement('div');
+                appCard.className = 'app-card';
+                appCard.onclick = () => {
+                    window.open(app.url, '_blank');
+                };
+                
+                appCard.innerHTML = `
+                    <div class="app-icon" style="background-color: ${app.color}">
+                        ${app.icon}
+                    </div>
+                    <div class="app-name">${app.name}</div>
+                    <div class="app-desc">${app.desc}</div>
+                `;
+                
+                appsGrid.appendChild(appCard);
+            });
+        }
+        
+        // 初始化渲染
+        renderApps();
+        
+        // 搜索功能
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            
+            if (!searchTerm) {
+                renderApps();
+                return;
+            }
+            
+            const filteredApps = apps.filter(app => 
+                app.name.toLowerCase().includes(searchTerm) || 
+                app.desc.toLowerCase().includes(searchTerm)
+            );
+            
+            renderApps(filteredApps);
+        });
+        
+        // 分类切换功能
+        let activeCategory = '全部';
+        
+        categories.forEach(category => {
+            category.addEventListener('click', function() {
+                categories.forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                
+                activeCategory = this.textContent;
+                
+                if (activeCategory === '全部') {
+                    renderApps();
+                    return;
+                }
+                
+                const filteredApps = apps.filter(app => 
+                    app.category === activeCategory
+                );
+                
+                renderApps(filteredApps);
+            });
+        });
+    </script>
+</body>
+</html>
