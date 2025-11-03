@@ -13,9 +13,10 @@
         }
         
         body {
-            background-color: #f5f5f5;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             color: #333;
             padding: 10px;
+            min-height: 100vh;
         }
         
         .container {
@@ -27,100 +28,175 @@
         header {
             text-align: center;
             margin-bottom: 20px;
-            padding: 15px;
-            background: linear-gradient(135deg, #4b6cb7, #182848);
+            padding: 20px 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
         }
         
         h1 {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
         }
         
         .subtitle {
             font-size: 0.9rem;
             opacity: 0.9;
+            position: relative;
+            z-index: 1;
         }
         
         .search-bar {
-            margin: 15px auto;
+            margin: 20px auto;
             max-width: 100%;
+            position: relative;
         }
         
         .search-bar input {
             width: 100%;
-            padding: 10px 15px;
+            padding: 12px 20px;
             border: none;
-            border-radius: 24px;
+            border-radius: 30px;
             font-size: 0.9rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            background: white;
+        }
+        
+        .search-bar input:focus {
+            outline: none;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+            transform: translateY(-2px);
         }
         
         .categories {
             display: flex;
             justify-content: flex-start;
             flex-wrap: wrap;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             overflow-x: auto;
             white-space: nowrap;
             -webkit-overflow-scrolling: touch;
+            padding: 5px 0;
         }
         
         .category {
-            padding: 6px 12px;
-            margin: 3px;
+            padding: 8px 16px;
+            margin: 5px;
             background-color: white;
-            border-radius: 20px;
+            border-radius: 25px;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            font-size: 0.8rem;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+            font-size: 0.85rem;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+        
+        .category:hover::before {
+            left: 100%;
         }
         
         .category.active, .category:hover {
-            background-color: #4b6cb7;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
         }
         
         .apps-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
         }
         
         .app-card {
             background-color: white;
-            border-radius: 12px;
-            padding: 15px;
+            border-radius: 15px;
+            padding: 20px;
             text-align: center;
             transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
         }
         
         .app-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .app-card:hover::before {
+            transform: scaleX(1);
         }
         
         .app-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 16px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
             margin: 0 auto 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 24px;
             color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 5px 10px rgba(102, 126, 234, 0.3);
+            transition: transform 0.3s;
+        }
+        
+        .app-card:hover .app-icon {
+            transform: scale(1.1) rotate(5deg);
         }
         
         .app-name {
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 8px;
+            color: #333;
         }
         
         .app-desc {
@@ -131,10 +207,13 @@
         
         footer {
             text-align: center;
-            margin-top: 20px;
-            padding: 15px;
+            margin-top: 30px;
+            padding: 20px 15px;
             color: #666;
             font-size: 0.8rem;
+            background: rgba(255,255,255,0.7);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
         }
         
         .no-results {
@@ -142,6 +221,7 @@
             grid-column: 1 / -1;
             padding: 40px;
             color: #666;
+            font-size: 1.1rem;
         }
         
         @media (max-width: 480px) {
@@ -150,8 +230,12 @@
             }
             
             .category {
-                padding: 5px 10px;
-                font-size: 0.7rem;
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
             }
         }
         
@@ -168,17 +252,14 @@
         </header>
         
         <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="找不到直接在这搜..." autocomplete="off">
+            <input type="text" id="searchInput" placeholder="搜索应用或资源..." autocomplete="off">
         </div>
         
         <div class="categories">
             <div class="category active">热门</div>
             <div class="category">追剧</div>
-			<!-- https://pan.xunlei.com/s/VObuMWnTCvio-U_cXN5xgJCQA1?pwd=98ec# -->
-			<div class="category">动漫</div>
-			<!-- https://pan.xunlei.com/s/VObuNDCVXI78YnnwEGQY2StkA1?pwd=dw75# -->
+            <div class="category">动漫</div>
             <div class="category">漫画</div>
-			<!-- https://pan.xunlei.com/s/VObuNHTV7Q1PsEznMCr8qmwhA1?pwd=63vs# -->
             <div class="category">工具</div>
             <div class="category">游戏</div>
         </div>
@@ -199,31 +280,27 @@
                 name: "影视仓", 
                 desc: "APP手机电视通用", 
                 color: "#1677FF", 
-                icon: "📺",
                 url: "https://pan.xunlei.com/s/VObuMWnTCvio-U_cXN5xgJCQA1?pwd=98ec",
                 category: "追剧"
             },
-			{ 
+            { 
                 name: "不念余响", 
                 desc: "沙雕动画", 
                 color: "#3A8BFF", 
-                icon: "🎬",
                 url: "https://uhptge30c3.feishu.cn/drive/folder/ECJNfUVMQl4oiGdKqZKcwkJ3nPh",
                 category: "追剧"
             },
-			{ 
+            { 
                 name: "看剧网站2", 
                 desc: "热播剧短剧动漫", 
                 color: "#1D7DFA", 
-                icon: "🎬",
                 url: "https://t.wosososo.com/",
                 category: "追剧"
             },
-			{ 
+            { 
                 name: "水龙吟", 
                 desc: "在线看", 
                 color: "#FF7A00", 
-                icon: "⚡",
                 url: "https://www.tv8765.com/play/70873-1-1.html",
                 category: "追剧"
             },
@@ -231,15 +308,13 @@
                 name: "医统大明", 
                 desc: "沙雕动画", 
                 color: "#FF6B00", 
-                icon: "🎬",
                 url: "https://uhptge30c3.feishu.cn/drive/folder/MBvnfCLnmle1C7dRreucSiCVnJf",
                 category: "追剧"
             },
-			{ 
+            { 
                 name: "天地剑心", 
                 desc: "在线看", 
                 color: "#FF7A00", 
-                icon: "⚡",
                 url: "https://ucupfox.com/movie/index120732.html",
                 category: "追剧"
             },
@@ -247,7 +322,6 @@
                 name: "TVBox", 
                 desc: "APP手机电视通用", 
                 color: "#1677FF", 
-                icon: "📺",
                 url: "https://pan.xunlei.com/s/VObuMWnTCvio-U_cXN5xgJCQA1?pwd=98ec",
                 category: "追剧"
             },
@@ -255,7 +329,6 @@
                 name: "人人视频", 
                 desc: "APP手机版", 
                 color: "#1677FF", 
-                icon: "📺",
                 url: "https://pan.xunlei.com/s/VObuMWnTCvio-U_cXN5xgJCQA1?pwd=98ec",
                 category: "追剧"
             },
@@ -263,7 +336,6 @@
                 name: "游戏合集", 
                 desc: "手机电脑单机游戏", 
                 color: "#E60026", 
-                icon: "🎶",
                 url: "https://pan.xunlei.com/s/VOd7W3tTRzNzBuNq7ZJFPgO3A1?pwd=mc65#",
                 category: "游戏"
             },
@@ -271,7 +343,6 @@
                 name: "看剧网站1", 
                 desc: "热播剧短剧动漫", 
                 color: "#FFD100", 
-                icon: "🎬",
                 url: "https://www.tv8765.com/",
                 category: "追剧"
             },
@@ -279,7 +350,6 @@
                 name: "动漫网站1", 
                 desc: "国产欧美日本", 
                 color: "#0084FF", 
-                icon: "📺",
                 url: "https://www.yhdm111.cc/",
                 category: "动漫"
             },
@@ -287,7 +357,6 @@
                 name: "漫画网站1", 
                 desc: "韩漫日漫", 
                 color: "#E6162D", 
-                icon: "📱",
                 url: "https://www.ycymh.com/",
                 category: "漫画"
             },
@@ -295,7 +364,6 @@
                 name: "漫画网站2", 
                 desc: "国漫", 
                 color: "#EE2C2C", 
-                icon: "📱",
                 url: "https://www.guomanwang.com/",
                 category: "漫画"
             },
@@ -303,7 +371,6 @@
                 name: "漫画网站3", 
                 desc: "国漫韩漫日漫", 
                 color: "#00AAFF", 
-                icon: "📱",
                 url: "https://www.amap.com/",
                 category: "漫画"
             },
@@ -311,7 +378,6 @@
                 name: "小说在线搜索", 
                 desc: "长篇短篇", 
                 color: "#00B0FF", 
-                icon: "📱",
                 url: "http://m.soduzw.com/",
                 category: "工具"
             },
@@ -319,7 +385,6 @@
                 name: "AI抠图", 
                 desc: "电脑本地AI抠图", 
                 color: "#E31436", 
-                icon: "⚡",
                 url: "https://pan.xunlei.com/s/VOd7ZDbIMyxUAk_jY1j3F6w2A1?pwd=ax64#",
                 category: "工具"
             },
@@ -327,15 +392,13 @@
                 name: "看片工具合集", 
                 desc: "追剧动漫漫画软件合集", 
                 color: "#FF7A00", 
-                icon: "⚡",
                 url: "https://pan.xunlei.com/s/VOd7_-EesTOhqcUpQXUvye6dA1?pwd=a9j4#",
                 category: "工具"
             },
-			{ 
+            { 
                 name: "AI变声器", 
                 desc: "手机平板电脑", 
                 color: "#07C160", 
-                icon: "💬",
                 url: "https://pan.xunlei.com/s/VObuK42Bl-jZHH1FBHfeQirTA1?pwd=2e6r#",
                 category: "工具"
             }
@@ -362,10 +425,11 @@
                     window.open(app.url, '_blank');
                 };
                 
+                // 生成首字母作为图标
+                const firstChar = app.name.charAt(0);
+                
                 appCard.innerHTML = `
-                    <div class="app-icon" style="background-color: ${app.color}">
-                        ${app.icon}
-                    </div>
+                    <div class="app-icon">${firstChar}</div>
                     <div class="app-name">${app.name}</div>
                     <div class="app-desc">${app.desc}</div>
                 `;
