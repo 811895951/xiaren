@@ -209,7 +209,10 @@
             filteredApps.forEach(app => {
                 const appCard = document.createElement('div');
                 appCard.className = 'app-card';
-                appCard.onclick = () => window.open(app.url, '_blank');
+                appCard.onclick = () => {
+                    // 修改此处：在新标签页打开链接
+                    window.open(app.url, '_blank');
+                };
                 
                 const firstChar = app.name.charAt(0);
                 
