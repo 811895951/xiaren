@@ -37,35 +37,19 @@
             overflow: hidden;
         }
         
-        header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            transform: rotate(30deg);
-        }
-        
         h1 {
             font-size: 1.8rem;
             margin-bottom: 8px;
-            position: relative;
-            z-index: 1;
         }
         
         .subtitle {
             font-size: 0.9rem;
             opacity: 0.9;
-            position: relative;
-            z-index: 1;
         }
         
         .search-bar {
             margin: 20px auto;
             max-width: 100%;
-            position: relative;
         }
         
         .search-bar input {
@@ -75,172 +59,92 @@
             border-radius: 30px;
             font-size: 0.9rem;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
             background: white;
-        }
-        
-        .search-bar input:focus {
-            outline: none;
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
-            transform: translateY(-2px);
         }
         
         .categories {
             display: flex;
-            justify-content: flex-start;
             flex-wrap: wrap;
-            margin-bottom: 25px;
-            overflow-x: auto;
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch;
-            padding: 5px 0;
+            margin-bottom: 15px;
+            gap: 8px;
         }
         
         .category {
-            padding: 8px 16px;
-            margin: 5px;
+            padding: 6px 12px;
             background-color: white;
             border-radius: 25px;
             cursor: pointer;
-            transition: all 0.3s;
+            font-size: 0.8rem;
             box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-            font-size: 0.85rem;
-            font-weight: 500;
-            position: relative;
-            overflow: hidden;
         }
         
-        .category::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: left 0.5s;
-        }
-        
-        .category:hover::before {
-            left: 100%;
-        }
-        
-        .category.active, .category:hover {
+        .category.active {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
         }
         
         .apps-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 12px;
         }
         
         .app-card {
             background-color: white;
-            border-radius: 15px;
-            padding: 20px;
+            border-radius: 12px;
+            padding: 15px;
             text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        
-        .app-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s;
-        }
-        
-        .app-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .app-card:hover::before {
-            transform: scaleX(1);
         }
         
         .app-icon {
-            width: 60px;
-            height: 60px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            margin: 0 auto 15px;
+            margin: 0 auto 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 18px;
             color: white;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            box-shadow: 0 5px 10px rgba(102, 126, 234, 0.3);
-            transition: transform 0.3s;
-        }
-        
-        .app-card:hover .app-icon {
-            transform: scale(1.1) rotate(5deg);
         }
         
         .app-name {
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            margin-bottom: 8px;
-            color: #333;
+            margin-bottom: 5px;
         }
         
         .app-desc {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             color: #666;
-            line-height: 1.4;
         }
         
         footer {
             text-align: center;
             margin-top: 30px;
-            padding: 20px 15px;
+            padding: 15px;
             color: #666;
             font-size: 0.8rem;
-            background: rgba(255,255,255,0.7);
-            border-radius: 10px;
-            backdrop-filter: blur(5px);
-        }
-        
-        .no-results {
-            text-align: center;
-            grid-column: 1 / -1;
-            padding: 40px;
-            color: #666;
-            font-size: 1.1rem;
         }
         
         @media (max-width: 480px) {
             .apps-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(4, 1fr);
+                gap: 8px;
             }
             
-            .category {
-                padding: 6px 12px;
-                font-size: 0.75rem;
+            .app-card {
+                padding: 10px;
             }
             
-            h1 {
-                font-size: 1.5rem;
+            .app-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
             }
-        }
-        
-        * {
-            -webkit-tap-highlight-color: transparent;
         }
     </style>
 </head>
@@ -274,158 +178,39 @@
     </div>
 
     <script>
-        // 应用数据 - 每个应用可以自定义跳转链接
         const apps = [
-            { 
-                name: "影视仓", 
-                desc: "APP手机电视通用", 
-                color: "#1677FF", 
-                url: "https://pan.xunlei.com/s/VObuMWnTCvio-U_cXN5xgJCQA1?pwd=98ec",
-                category: "追剧"
-            },
-            { 
-                name: "不念余响", 
-                desc: "沙雕动画", 
-                color: "#3A8BFF", 
-                url: "https://uhptge30c3.feishu.cn/drive/folder/ECJNfUVMQl4oiGdKqZKcwkJ3nPh",
-                category: "追剧"
-            },
-            { 
-                name: "看剧网站2", 
-                desc: "热播剧短剧动漫", 
-                color: "#1D7DFA", 
-                url: "https://t.wosososo.com/",
-                category: "追剧"
-            },
-            { 
-                name: "水龙吟", 
-                desc: "在线看", 
-                color: "#FF7A00", 
-                url: "https://www.tv8765.com/play/70873-1-1.html",
-                category: "追剧"
-            },
-            { 
-                name: "医统大明", 
-                desc: "沙雕动画", 
-                color: "#FF6B00", 
-                url: "https://uhptge30c3.feishu.cn/drive/folder/MBvnfCLnmle1C7dRreucSiCVnJf",
-                category: "追剧"
-            },
-            { 
-                name: "天地剑心", 
-                desc: "在线看", 
-                color: "#FF7A00", 
-                url: "https://ucupfox.com/movie/index120732.html",
-                category: "追剧"
-            },
-            { 
-                name: "TVBox", 
-                desc: "APP手机电视通用", 
-                color: "#1677FF", 
-                url: "https://pan.xunlei.com/s/VObuMWnTCvio-U_cXN5xgJCQA1?pwd=98ec",
-                category: "追剧"
-            },
-            { 
-                name: "人人视频", 
-                desc: "APP手机版", 
-                color: "#1677FF", 
-                url: "https://pan.xunlei.com/s/VObuMWnTCvio-U_cXN5xgJCQA1?pwd=98ec",
-                category: "追剧"
-            },
-            { 
-                name: "游戏合集", 
-                desc: "手机电脑单机游戏", 
-                color: "#E60026", 
-                url: "https://pan.xunlei.com/s/VOd7W3tTRzNzBuNq7ZJFPgO3A1?pwd=mc65#",
-                category: "游戏"
-            },
-            { 
-                name: "看剧网站1", 
-                desc: "热播剧短剧动漫", 
-                color: "#FFD100", 
-                url: "https://www.tv8765.com/",
-                category: "追剧"
-            },
-            { 
-                name: "动漫网站1", 
-                desc: "国产欧美日本", 
-                color: "#0084FF", 
-                url: "https://www.yhdm111.cc/",
-                category: "动漫"
-            },
-            { 
-                name: "漫画网站1", 
-                desc: "韩漫日漫", 
-                color: "#E6162D", 
-                url: "https://www.ycymh.com/",
-                category: "漫画"
-            },
-            { 
-                name: "漫画网站2", 
-                desc: "国漫", 
-                color: "#EE2C2C", 
-                url: "https://www.guomanwang.com/",
-                category: "漫画"
-            },
-            { 
-                name: "漫画网站3", 
-                desc: "国漫韩漫日漫", 
-                color: "#00AAFF", 
-                url: "https://www.amap.com/",
-                category: "漫画"
-            },
-            { 
-                name: "小说在线搜索", 
-                desc: "长篇短篇", 
-                color: "#00B0FF", 
-                url: "http://m.soduzw.com/",
-                category: "工具"
-            },
-            { 
-                name: "AI抠图", 
-                desc: "电脑本地AI抠图", 
-                color: "#E31436", 
-                url: "https://pan.xunlei.com/s/VOd7ZDbIMyxUAk_jY1j3F6w2A1?pwd=ax64#",
-                category: "工具"
-            },
-            { 
-                name: "看片工具合集", 
-                desc: "追剧动漫漫画软件合集", 
-                color: "#FF7A00", 
-                url: "https://pan.xunlei.com/s/VOd7_-EesTOhqcUpQXUvye6dA1?pwd=a9j4#",
-                category: "工具"
-            },
-            { 
-                name: "AI变声器", 
-                desc: "手机平板电脑", 
-                color: "#07C160", 
-                url: "https://pan.xunlei.com/s/VObuK42Bl-jZHH1FBHfeQirTA1?pwd=2e6r#",
-                category: "工具"
-            }
+            { name: "影视仓", desc: "APP手机电视通用", url: "https://pan.xunlei.com/s/VObuMWnTCvio-U_cXN5xgJCQA1?pwd=98ec", category: "追剧" },
+            { name: "不念余响", desc: "沙雕动画", url: "https://uhptge30c3.feishu.cn/drive/folder/ECJNfUVMQl4oiGdKqZKcwkJ3nPh", category: "追剧" },
+            { name: "看剧网站2", desc: "热播剧短剧动漫", url: "https://t.wosososo.com/", category: "追剧" },
+            { name: "水龙吟", desc: "在线看", url: "https://www.tv8765.com/play/70873-1-1.html", category: "追剧" },
+            { name: "医统大明", desc: "沙雕动画", url: "https://uhptge30c3.feishu.cn/drive/folder/MBvnfCLnmle1C7dRreucSiCVnJf", category: "追剧" },
+            { name: "天地剑心", desc: "在线看", url: "https://ucupfox.com/movie/index120732.html", category: "追剧" },
+            { name: "TVBox", desc: "APP手机电视通用", url: "https://pan.xunlei.com/s/VObuMWnTCvio-U_cXN5xgJCQA1?pwd=98ec", category: "追剧" },
+            { name: "人人视频", desc: "APP手机版", url: "https://pan.xunlei.com/s/VObuMWnTCvio-U_cXN5xgJCQA1?pwd=98ec", category: "追剧" },
+            { name: "游戏合集", desc: "手机电脑单机游戏", url: "https://pan.xunlei.com/s/VOd7W3tTRzNzBuNq7ZJFPgO3A1?pwd=mc65#", category: "游戏" },
+            { name: "看剧网站1", desc: "热播剧短剧动漫", url: "https://www.tv8765.com/", category: "追剧" },
+            { name: "动漫网站1", desc: "国产欧美日本", url: "https://www.yhdm111.cc/", category: "动漫" },
+            { name: "漫画网站1", desc: "韩漫日漫", url: "https://www.ycymh.com/", category: "漫画" },
+            { name: "漫画网站2", desc: "国漫", url: "https://www.guomanwang.com/", category: "漫画" },
+            { name: "漫画网站3", desc: "国漫韩漫日漫", url: "https://www.amap.com/", category: "漫画" },
+            { name: "小说在线搜索", desc: "长篇短篇", url: "http://m.soduzw.com/", category: "工具" },
+            { name: "AI抠图", desc: "电脑本地AI抠图", url: "https://pan.xunlei.com/s/VOd7ZDbIMyxUAk_jY1j3F6w2A1?pwd=ax64#", category: "工具" },
+            { name: "看片工具合集", desc: "追剧动漫漫画软件合集", url: "https://pan.xunlei.com/s/VOd7_-EesTOhqcUpQXUvye6dA1?pwd=a9j4#", category: "工具" },
+            { name: "AI变声器", desc: "手机平板电脑", url: "https://pan.xunlei.com/s/VObuK42Bl-jZHH1FBHfeQirTA1?pwd=2e6r#", category: "工具" }
         ];
         
-        // 获取DOM元素
         const appsGrid = document.getElementById('appsGrid');
         const searchInput = document.getElementById('searchInput');
         const categories = document.querySelectorAll('.category');
         
-        // 渲染应用卡片
         function renderApps(filteredApps = apps) {
             appsGrid.innerHTML = '';
-            
-            if (filteredApps.length === 0) {
-                appsGrid.innerHTML = '<div class="no-results">没有找到匹配的应用</div>';
-                return;
-            }
             
             filteredApps.forEach(app => {
                 const appCard = document.createElement('div');
                 appCard.className = 'app-card';
-                appCard.onclick = () => {
-                    window.open(app.url, '_blank');
-                };
+                appCard.onclick = () => window.open(app.url, '_blank');
                 
-                // 生成首字母作为图标
                 const firstChar = app.name.charAt(0);
                 
                 appCard.innerHTML = `
@@ -438,45 +223,29 @@
             });
         }
         
-        // 初始化渲染
         renderApps();
         
-        // 搜索功能
         searchInput.addEventListener('input', function() {
             const searchTerm = this.value.toLowerCase().trim();
-            
-            if (!searchTerm) {
-                renderApps();
-                return;
-            }
-            
             const filteredApps = apps.filter(app => 
                 app.name.toLowerCase().includes(searchTerm) || 
                 app.desc.toLowerCase().includes(searchTerm)
             );
-            
             renderApps(filteredApps);
         });
-        
-        // 分类切换功能
-        let activeCategory = '热门';
         
         categories.forEach(category => {
             category.addEventListener('click', function() {
                 categories.forEach(c => c.classList.remove('active'));
                 this.classList.add('active');
                 
-                activeCategory = this.textContent;
-                
+                const activeCategory = this.textContent;
                 if (activeCategory === '热门') {
                     renderApps();
                     return;
                 }
                 
-                const filteredApps = apps.filter(app => 
-                    app.category === activeCategory
-                );
-                
+                const filteredApps = apps.filter(app => app.category === activeCategory);
                 renderApps(filteredApps);
             });
         });
