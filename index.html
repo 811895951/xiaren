@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>全网资源站</title>
     <style>
         :root {
@@ -25,9 +25,11 @@
             color: var(--dark);
             min-height: 100vh;
             padding: 10px;
+            overflow-x: hidden;
         }
         
         .container {
+            width: 100%;
             max-width: 100%;
             margin: 0 auto;
             padding: 0 10px;
@@ -36,7 +38,7 @@
         header {
             text-align: center;
             margin-bottom: 15px;
-            padding: 20px 15px;
+            padding: 15px;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
             border-radius: 12px;
@@ -44,27 +46,29 @@
         }
         
         h1 {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             margin-bottom: 8px;
             font-weight: 600;
+            word-break: break-word;
         }
         
         .subtitle {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             opacity: 0.9;
         }
         
         .search-bar {
             margin: 15px auto;
+            width: 100%;
             max-width: 100%;
         }
         
         .search-bar input {
             width: 100%;
-            padding: 12px 18px;
+            padding: 10px 15px;
             border: none;
             border-radius: 25px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
             background: white;
             border: 1px solid rgba(0,0,0,0.05);
@@ -72,20 +76,29 @@
         
         .categories {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             margin-bottom: 15px;
             gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .categories::-webkit-scrollbar {
+            display: none;
         }
         
         .category {
-            padding: 8px 15px;
+            flex: 0 0 auto;
+            padding: 6px 12px;
             background-color: white;
             border-radius: 25px;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 500;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
             border: 1px solid rgba(0,0,0,0.05);
+            white-space: nowrap;
         }
         
         .category.active {
@@ -95,39 +108,40 @@
         
         .apps-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
         }
         
         .app-card {
             background-color: white;
-            border-radius: 12px;
-            padding: 15px 10px;
+            border-radius: 10px;
+            padding: 12px 8px;
             text-align: center;
             box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
             cursor: pointer;
             border: 1px solid rgba(0,0,0,0.05);
+            min-width: 0;
         }
         
         .app-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            margin: 0 auto 8px;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            margin: 0 auto 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             color: white;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
         }
         
         .app-name {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
             color: var(--dark);
             white-space: nowrap;
             overflow: hidden;
@@ -135,10 +149,10 @@
         }
         
         .app-desc {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--gray);
             line-height: 1.2;
-            height: 1.8em;
+            height: 1.6em;
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
@@ -148,24 +162,34 @@
         
         footer {
             text-align: center;
-            margin-top: 20px;
-            padding: 15px;
+            margin-top: 15px;
+            padding: 12px;
             color: var(--gray);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             background: rgba(255,255,255,0.7);
-            border-radius: 10px;
+            border-radius: 8px;
             border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        @media (min-width: 375px) {
+            .apps-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
         }
         
         @media (min-width: 480px) {
             .apps-grid {
                 grid-template-columns: repeat(5, 1fr);
+                gap: 10px;
             }
-        }
-        
-        @media (min-width: 768px) {
-            .apps-grid {
-                grid-template-columns: repeat(6, 1fr);
+            
+            .app-card {
+                padding: 15px 10px;
+            }
+            
+            .app-icon {
+                width: 40px;
+                height: 40px;
             }
         }
     </style>
@@ -229,7 +253,7 @@
             appsGrid.innerHTML = '';
             
             if (filteredApps.length === 0) {
-                appsGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px;color:#666;font-size:0.9rem;">没有找到匹配的应用</div>';
+                appsGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:15px;color:#666;font-size:0.8rem;">没有找到匹配的应用</div>';
                 return;
             }
             
