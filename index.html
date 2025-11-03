@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>全网资源站</title>
+    <!-- 头部样式保持不变 -->
     <style>
         :root {
             --primary: #667eea;
@@ -87,6 +85,9 @@
             font-weight: 500;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
             border: 1px solid rgba(0,0,0,0.05);
+            text-decoration: none;
+            color: var(--dark);
+            white-space: nowrap;
         }
         
         .category.active {
@@ -176,21 +177,17 @@
 <body>
     <div class="container">
         <header>
-            <h1>全网资源站</h1>
+			<h1>全网资源站</h1>
             <p class="subtitle">本站由AI收集自网络，仅供学习参考</p>
+			<p class="subtitle">大部分内容不在前台展示，可在搜索框直接搜索你想看的内容</p>
         </header>
         
         <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="搜索应用或资源..." autocomplete="off">
+            <input type="text" id="searchInput" placeholder="很多内容不显示，找不到直接在这搜..." autocomplete="off">
         </div>
         
-        <div class="categories">
-            <div class="category active">热门</div>
-            <div class="category">追剧</div>
-            <div class="category">动漫</div>
-            <div class="category">漫画</div>
-            <div class="category">工具</div>
-            <div class="category">游戏</div>
+        <div class="categories" id="categoriesList">
+            <!-- 分类将通过JavaScript动态生成 -->
         </div>
         
         <div class="app-list" id="appsGrid">
@@ -203,32 +200,99 @@
     </div>
 
     <script>
+        const categories = [
+            { name: "热门", url: "#hot" },
+            { name: "追剧", url: "#tv" },
+            { name: "动漫", url: "#anime" },
+            { name: "漫画", url: "#comic" },
+            { name: "工具", url: "#tools" },
+            { name: "游戏", url: "#games" },
+            { name: "小说", url: "#novel" },
+            { name: "隐藏", url: "#hidden", hidden: true }
+        ];
+
         const apps = [
-            { name: "影视仓", desc: "APP手机电视通用", url: "https://pan.xunlei.com/s/VObuMWnTCvio-U_cXN5xgJCQA1?pwd=98ec", category: "追剧" },
+            { name: "影视仓", desc: "APP手机电视通用", url: "https://pan.xunlei.com/s/VObuMWnTCvio-U_cXN5xgJCQA1?pwd=98ec", category: "软件" },
             { name: "不念余响", desc: "沙雕动画", url: "https://uhptge30c3.feishu.cn/drive/folder/ECJNfUVMQl4oiGdKqZKcwkJ3nPh", category: "追剧" },
             { name: "看剧网站2", desc: "热播剧短剧动漫", url: "https://t.wosososo.com/", category: "追剧" },
             { name: "水龙吟", desc: "在线看", url: "https://www.tv8765.com/play/70873-1-1.html", category: "追剧" },
             { name: "医统大明", desc: "沙雕动画", url: "https://uhptge30c3.feishu.cn/drive/folder/MBvnfCLnmle1C7dRreucSiCVnJf", category: "追剧" },
             { name: "天地剑心", desc: "在线看", url: "https://ucupfox.com/movie/index120732.html", category: "追剧" },
-            { name: "TVBox", desc: "APP手机电视通用", url: "https://pan.xunlei.com/s/VObuMWnTCvio-U_cXN5xgJCQA1?pwd=98ec", category: "追剧" },
-            { name: "人人视频", desc: "APP手机版", url: "https://pan.xunlei.com/s/VObuMWnTCvio-U_cXN5xgJCQA1?pwd=98ec", category: "追剧" },
+            { name: "TVBox", desc: "APP手机电视通用", url: "https://pan.xunlei.com/s/VObuMWnTCvio-U_cXN5xgJCQA1?pwd=98ec", category: "软件" },
+            { name: "人人视频", desc: "APP手机版", url: "https://pan.xunlei.com/s/VObuMWnTCvio-U_cXN5xgJCQA1?pwd=98ec", category: "软件" },
             { name: "游戏合集", desc: "手机电脑单机游戏", url: "https://pan.xunlei.com/s/VOd7W3tTRzNzBuNq7ZJFPgO3A1?pwd=mc65#", category: "游戏" },
             { name: "看剧网站1", desc: "热播剧短剧动漫", url: "https://www.tv8765.com/", category: "追剧" },
             { name: "动漫网站1", desc: "国产欧美日本", url: "https://www.yhdm111.cc/", category: "动漫" },
             { name: "漫画网站1", desc: "韩漫日漫", url: "https://www.ycymh.com/", category: "漫画" },
             { name: "漫画网站2", desc: "国漫", url: "https://www.guomanwang.com/", category: "漫画" },
             { name: "漫画网站3", desc: "国漫韩漫日漫", url: "https://www.amap.com/", category: "漫画" },
-            { name: "小说在线搜索", desc: "长篇短篇", url: "http://m.soduzw.com/", category: "工具" },
-            { name: "AI抠图", desc: "电脑本地AI抠图", url: "https://pan.xunlei.com/s/VOd7ZDbIMyxUAk_jY1j3F6w2A1?pwd=ax64#", category: "工具" },
-            { name: "看片工具合集", desc: "追剧动漫漫画软件合集", url: "https://pan.xunlei.com/s/VOd7_-EesTOhqcUpQXUvye6dA1?pwd=a9j4#", category: "工具" },
-            { name: "AI变声器", desc: "手机平板电脑", url: "https://pan.xunlei.com/s/VObuK42Bl-jZHH1FBHfeQirTA1?pwd=2e6r#", category: "工具" }
+            { name: "小说在线搜索", desc: "长篇短篇", url: "http://m.soduzw.com/", category: "小说" },
+            { name: "AI抠图", desc: "电脑本地AI抠图", url: "https://pan.xunlei.com/s/VOd7ZDbIMyxUAk_jY1j3F6w2A1?pwd=ax64#", category: "软件" },
+            { name: "看片工具合集", desc: "追剧动漫漫画软件合集", url: "https://pan.xunlei.com/s/VOd7_-EesTOhqcUpQXUvye6dA1?pwd=a9j4#", category: "软件" },
+            { name: "AI变声器", desc: "手机平板电脑", url: "https://pan.xunlei.com/s/VObuK42Bl-jZHH1FBHfeQirTA1?pwd=2e6r#", category: "隐藏" }
         ];
         
+        const categoriesList = document.getElementById('categoriesList');
         const appsGrid = document.getElementById('appsGrid');
         const searchInput = document.getElementById('searchInput');
-        const categories = document.querySelectorAll('.category');
         
-        function renderApps(filteredApps = apps) {
+        // 获取可见应用列表（过滤掉隐藏分类）
+        function getVisibleApps() {
+            return apps.filter(app => {
+                const category = categories.find(c => c.name === app.category);
+                return !(category && category.hidden);
+            });
+        }
+        
+        // 渲染分类
+        function renderCategories() {
+            categoriesList.innerHTML = '';
+            
+            categories.forEach(category => {
+                if (category.hidden) return; // 跳过隐藏分类
+                
+                const categoryEl = document.createElement('a');
+                categoryEl.className = 'category';
+                categoryEl.href = category.url;
+                categoryEl.textContent = category.name;
+                
+                if (category.name === '热门') {
+                    categoryEl.classList.add('active');
+                }
+                
+                categoryEl.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    document.querySelectorAll('.category').forEach(c => {
+                        c.classList.remove('active');
+                    });
+                    
+                    this.classList.add('active');
+                    filterAppsByCategory(this.textContent);
+                });
+                
+                categoriesList.appendChild(categoryEl);
+            });
+        }
+        
+        // 按分类筛选应用
+        function filterAppsByCategory(categoryName) {
+            const visibleApps = getVisibleApps();
+            
+            if (categoryName === '热门') {
+                renderApps(visibleApps);
+                return;
+            }
+            
+            const filteredApps = visibleApps.filter(app => 
+                app.category === categoryName
+            );
+            
+            renderApps(filteredApps);
+        }
+        
+        // 渲染应用列表
+        function renderApps(filteredApps = getVisibleApps()) {
             appsGrid.innerHTML = '';
             
             if (filteredApps.length === 0) {
@@ -258,8 +322,7 @@
             });
         }
         
-        renderApps();
-        
+        // 搜索功能
         searchInput.addEventListener('input', function() {
             const searchTerm = this.value.toLowerCase().trim();
             
@@ -269,34 +332,17 @@
             }
             
             const filteredApps = apps.filter(app => 
-                app.name.toLowerCase().includes(searchTerm) || 
-                app.desc.toLowerCase().includes(searchTerm)
+                (app.name.toLowerCase().includes(searchTerm) || 
+                 app.desc.toLowerCase().includes(searchTerm) ||
+                 app.category.toLowerCase().includes(searchTerm))
             );
             
             renderApps(filteredApps);
         });
         
-        let activeCategory = '热门';
-        
-        categories.forEach(category => {
-            category.addEventListener('click', function() {
-                categories.forEach(c => c.classList.remove('active'));
-                this.classList.add('active');
-                
-                activeCategory = this.textContent;
-                
-                if (activeCategory === '热门') {
-                    renderApps();
-                    return;
-                }
-                
-                const filteredApps = apps.filter(app => 
-                    app.category === activeCategory
-                );
-                
-                renderApps(filteredApps);
-            });
-        });
+        // 初始化
+        renderCategories();
+        renderApps();
     </script>
 </body>
 </html>
