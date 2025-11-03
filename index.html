@@ -395,7 +395,7 @@
         });
         
         // 分类切换功能
-        let activeCategory = '全部';
+        let activeCategory = '热门';
         
         categories.forEach(category => {
             category.addEventListener('click', function() {
@@ -404,7 +404,7 @@
                 
                 activeCategory = this.textContent;
                 
-                if (activeCategory === '全部') {
+                if (activeCategory === '热门') {
                     renderApps();
                     return;
                 }
