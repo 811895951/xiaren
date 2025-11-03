@@ -21,242 +21,151 @@
         }
         
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e6e9f0 100%);
+            background: #f5f7fa;
             color: var(--dark);
             min-height: 100vh;
-            padding: 20px;
+            padding: 10px;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 100%;
             margin: 0 auto;
-            padding: 0 15px;
+            padding: 0 10px;
         }
         
         header {
             text-align: center;
-            margin-bottom: 30px;
-            padding: 30px 20px;
+            margin-bottom: 15px;
+            padding: 20px 15px;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        header:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
-        }
-        
-        header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            transform: rotate(30deg);
-            animation: shine 8s infinite linear;
-        }
-        
-        @keyframes shine {
-            0% { transform: rotate(30deg) translateX(-50%); }
-            100% { transform: rotate(30deg) translateX(50%); }
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
         }
         
         h1 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-            position: relative;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            font-weight: 600;
         }
         
         .subtitle {
-            font-size: 1rem;
+            font-size: 0.8rem;
             opacity: 0.9;
-            position: relative;
         }
         
         .search-bar {
-            margin: 30px auto;
-            max-width: 600px;
-            position: relative;
+            margin: 15px auto;
+            max-width: 100%;
         }
         
         .search-bar input {
             width: 100%;
-            padding: 15px 25px;
+            padding: 12px 18px;
             border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
             background: white;
             border: 1px solid rgba(0,0,0,0.05);
         }
         
-        .search-bar input:focus {
-            outline: none;
-            box-shadow: 0 5px 25px rgba(102, 126, 234, 0.3);
-            transform: translateY(-2px);
-        }
-        
         .categories {
             display: flex;
-            justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 25px;
-            gap: 10px;
+            margin-bottom: 15px;
+            gap: 8px;
         }
         
         .category {
-            padding: 10px 20px;
+            padding: 8px 15px;
             background-color: white;
-            border-radius: 50px;
+            border-radius: 25px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 500;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
             border: 1px solid rgba(0,0,0,0.05);
-        }
-        
-        .category:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.2);
         }
         
         .category.active {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
-            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.3);
         }
         
         .apps-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
         }
         
         .app-card {
             background-color: white;
-            border-radius: 16px;
-            padding: 25px 20px;
+            border-radius: 12px;
+            padding: 15px 10px;
             text-align: center;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
             cursor: pointer;
             border: 1px solid rgba(0,0,0,0.05);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .app-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s;
-        }
-        
-        .app-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .app-card:hover::before {
-            transform: scaleX(1);
         }
         
         .app-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 18px;
-            margin: 0 auto 15px;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            margin: 0 auto 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 18px;
             font-weight: bold;
             color: white;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-            transition: transform 0.3s;
-        }
-        
-        .app-card:hover .app-icon {
-            transform: scale(1.1) rotate(5deg);
         }
         
         .app-name {
-            font-size: 1.1rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             color: var(--dark);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         .app-desc {
-            font-size: 0.85rem;
+            font-size: 0.7rem;
             color: var(--gray);
-            line-height: 1.4;
+            line-height: 1.2;
+            height: 1.8em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
         }
         
         footer {
             text-align: center;
-            margin-top: 50px;
-            padding: 20px;
+            margin-top: 20px;
+            padding: 15px;
             color: var(--gray);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             background: rgba(255,255,255,0.7);
-            border-radius: 12px;
-            backdrop-filter: blur(5px);
+            border-radius: 10px;
             border: 1px solid rgba(0,0,0,0.05);
         }
         
-        @media (max-width: 768px) {
+        @media (min-width: 480px) {
             .apps-grid {
-                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-                gap: 15px;
-            }
-            
-            header {
-                padding: 25px 15px;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
+                grid-template-columns: repeat(5, 1fr);
             }
         }
         
-        @media (max-width: 480px) {
+        @media (min-width: 768px) {
             .apps-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 12px;
-            }
-            
-            .app-card {
-                padding: 20px 15px;
-            }
-            
-            .app-icon {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-            }
-            
-            .search-bar input {
-                padding: 12px 20px;
+                grid-template-columns: repeat(6, 1fr);
             }
         }
     </style>
@@ -308,7 +217,7 @@
             { name: "漫画网站3", desc: "国漫韩漫日漫", url: "https://www.amap.com/", category: "漫画" },
             { name: "小说在线搜索", desc: "长篇短篇", url: "http://m.soduzw.com/", category: "工具" },
             { name: "AI抠图", desc: "电脑本地AI抠图", url: "https://pan.xunlei.com/s/VOd7ZDbIMyxUAk_jY1j3F6w2A1?pwd=ax64#", category: "工具" },
-            { name: "看片工具合集", desc: "追剧动漫漫画软件合集", url: "https://pan.xunlei.com/s/VOd7_-EesTOhqcUpQXUvye6dA1?pwd=a9j4#", category: "tool" },
+            { name: "看片工具合集", desc: "追剧动漫漫画软件合集", url: "https://pan.xunlei.com/s/VOd7_-EesTOhqcUpQXUvye6dA1?pwd=a9j4#", category: "工具" },
             { name: "AI变声器", desc: "手机平板电脑", url: "https://pan.xunlei.com/s/VObuK42Bl-jZHH1FBHfeQirTA1?pwd=2e6r#", category: "工具" }
         ];
         
@@ -320,7 +229,7 @@
             appsGrid.innerHTML = '';
             
             if (filteredApps.length === 0) {
-                appsGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#666;">没有找到匹配的应用</div>';
+                appsGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px;color:#666;font-size:0.9rem;">没有找到匹配的应用</div>';
                 return;
             }
             
