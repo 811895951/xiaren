@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <!-- 头部样式保持不变 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全网资源站</title>
     <style>
+        /* 样式部分保持不变，与您原始代码一致 */
         :root {
             --primary: #667eea;
             --secondary: #764ba2;
@@ -177,9 +180,9 @@
 <body>
     <div class="container">
         <header>
-			<h1>全网资源站</h1>
+            <h1>全网资源站</h1>
             <p class="subtitle">本站由AI收集自网络，仅供学习参考</p>
-			<p class="subtitle">大部分内容不在前台展示，可在搜索框直接搜索你想看的内容</p>
+            <p class="subtitle">大部分内容不在前台展示，可在搜索框直接搜索你想看的内容</p>
         </header>
         
         <div class="search-bar">
@@ -277,14 +280,12 @@
         
         // 按分类筛选应用
         function filterAppsByCategory(categoryName) {
-            const visibleApps = getVisibleApps();
-            
             if (categoryName === '热门') {
-                renderApps(visibleApps);
+                renderApps(getVisibleApps());
                 return;
             }
             
-            const filteredApps = visibleApps.filter(app => 
+            const filteredApps = getVisibleApps().filter(app => 
                 app.category === categoryName
             );
             
@@ -303,9 +304,6 @@
             filteredApps.forEach(app => {
                 const appItem = document.createElement('div');
                 appItem.className = 'app-item';
-                appItem.onclick = () => {
-                    window.open(app.url, '_blank');
-                };
                 
                 const firstChar = app.name.charAt(0);
                 
@@ -317,6 +315,10 @@
                     </div>
                     <div class="app-link">访问 →</div>
                 `;
+                
+                appItem.addEventListener('click', () => {
+                    window.open(app.url, '_blank');
+                });
                 
                 appsGrid.appendChild(appItem);
             });
