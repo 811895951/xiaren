@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>全网资源站</title>
     <style>
-        /* 样式部分保持不变，与您原始代码一致 */
         :root {
             --primary: #667eea;
             --secondary: #764ba2;
@@ -182,11 +181,10 @@
         <header>
             <h1>全网资源站</h1>
             <p class="subtitle">本站由AI收集自网络，仅供学习参考</p>
-            <p class="subtitle">大部分内容不在前台展示，可在搜索框直接搜索你想看的内容</p>
         </header>
         
         <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="很多内容不显示，找不到直接在这搜..." autocomplete="off">
+            <input type="text" id="searchInput" placeholder="搜索应用或资源..." autocomplete="off">
         </div>
         
         <div class="categories" id="categoriesList">
@@ -211,7 +209,7 @@
             { name: "软件", url: "#tools" },
             { name: "游戏", url: "#games" },
             { name: "小说", url: "#novel" },
-            { name: "隐藏", url: "#hidden", hidden: true }
+            
         ];
 
         const apps = [
@@ -233,28 +231,17 @@
             { name: "AI抠图", desc: "电脑本地AI抠图", url: "https://pan.xunlei.com/s/VOd7ZDbIMyxUAk_jY1j3F6w2A1?pwd=ax64#", category: "软件" },
             { name: "看片工具合集", desc: "追剧动漫漫画软件合集", url: "https://pan.xunlei.com/s/VOd7_-EesTOhqcUpQXUvye6dA1?pwd=a9j4#", category: "软件" },
             { name: "AI变声器", desc: "手机平板电脑", url: "https://pan.xunlei.com/s/VObuK42Bl-jZHH1FBHfeQirTA1?pwd=2e6r#", category: "软件" }
-            { name: "隐藏测试", desc: "测试", url: "https://baidu.com", category: "隐藏" }
         ];
         
         const categoriesList = document.getElementById('categoriesList');
         const appsGrid = document.getElementById('appsGrid');
         const searchInput = document.getElementById('searchInput');
         
-        // 获取可见应用列表（过滤掉隐藏分类）
-        function getVisibleApps() {
-            return apps.filter(app => {
-                const category = categories.find(c => c.name === app.category);
-                return !(category && category.hidden);
-            });
-        }
-        
         // 渲染分类
         function renderCategories() {
             categoriesList.innerHTML = '';
             
             categories.forEach(category => {
-                if (category.hidden) return; // 跳过隐藏分类
-                
                 const categoryEl = document.createElement('a');
                 categoryEl.className = 'category';
                 categoryEl.href = category.url;
@@ -282,11 +269,11 @@
         // 按分类筛选应用
         function filterAppsByCategory(categoryName) {
             if (categoryName === '热门') {
-                renderApps(getVisibleApps());
+                renderApps();
                 return;
             }
             
-            const filteredApps = getVisibleApps().filter(app => 
+            const filteredApps = apps.filter(app => 
                 app.category === categoryName
             );
             
@@ -294,7 +281,7 @@
         }
         
         // 渲染应用列表
-        function renderApps(filteredApps = getVisibleApps()) {
+        function renderApps(filteredApps = apps) {
             appsGrid.innerHTML = '';
             
             if (filteredApps.length === 0) {
@@ -305,6 +292,9 @@
             filteredApps.forEach(app => {
                 const appItem = document.createElement('div');
                 appItem.className = 'app-item';
+                appItem.onclick = () => {
+                    window.open(app.url, '_blank');
+                };
                 
                 const firstChar = app.name.charAt(0);
                 
@@ -316,10 +306,6 @@
                     </div>
                     <div class="app-link">访问 →</div>
                 `;
-                
-                appItem.addEventListener('click', () => {
-                    window.open(app.url, '_blank');
-                });
                 
                 appsGrid.appendChild(appItem);
             });
@@ -335,9 +321,8 @@
             }
             
             const filteredApps = apps.filter(app => 
-                (app.name.toLowerCase().includes(searchTerm) || 
-                 app.desc.toLowerCase().includes(searchTerm) ||
-                 app.category.toLowerCase().includes(searchTerm))
+                app.name.toLowerCase().includes(searchTerm) || 
+                app.desc.toLowerCase().includes(searchTerm)
             );
             
             renderApps(filteredApps);
